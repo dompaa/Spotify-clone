@@ -3,7 +3,8 @@ import { useSession } from 'next-auth/react'
 import {React, useEffect, useState} from 'react'
 import { isNull, shuffle } from 'lodash';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { playlistIdState } from '../atoms/playlistAtom';
+import { playlistIdState, playlistState } from '../atoms/playlistAtom';
+import useSpotify from '../hooks/useSpotify';
 
 
 const colors = [
@@ -18,15 +19,30 @@ const colors = [
 
 function Center() {
     const { data: session} = useSession();
+    const spotifyApi = useSpotify();
     const [color, setColor] = useState(null);
     //const [playlistId, setPlayistId]  = useRecoilState(playlistIdState);
     //read only version of variable
     const playlistId = useRecoilValue(playlistIdState); 
+    const [playlist, setPlaylist] = useRecoilState(playlistState);
 
 
     useEffect(() => {
     setColor(shuffle(colors).pop())
     }, [playlistId])
+
+    //when the component loads
+    useEffect(() => {
+        spotifyApi
+        .getPlaylist(playlistId)
+        .then((data) => {
+            setPlaylist(data.body);
+        })
+        .catch((err) => console.log("Something went wrong", err)); 
+    }, [spotifyApi, playlistId])
+    //playlist id as dependency included to refetch the information 
+
+    console.log(playlist);
 
   return (
     <div className='flex-grow '>
