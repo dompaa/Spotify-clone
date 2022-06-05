@@ -5,6 +5,7 @@ import { isNull, shuffle } from 'lodash';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { playlistIdState, playlistState } from '../atoms/playlistAtom';
 import useSpotify from '../hooks/useSpotify';
+import Songs from './Songs';
 
 
 const colors = [
@@ -42,13 +43,15 @@ function Center() {
     }, [spotifyApi, playlistId])
     //playlist id as dependency included to refetch the information 
 
-    console.log(playlist);
+    console.log(playlistId);
 
   return (
     <div className='flex-grow '>
 
         <header className='absolute top-5 right-8'>
-            <div className='flex items-center bg-red-300 space-x-3 opacity-90 hover:opacity-75 cursor-pointer rounded-full p-1 pr-2'>
+            <div className='flex items-center bg-black space-x-3 opacity-90 
+            hover:opacity-75 cursor-pointer rounded-full p-1 pr-2
+            text-white'>
             <img 
             className='rounded-full w-10 h-10' 
             src={session?.user.image} 
@@ -60,7 +63,7 @@ function Center() {
             </div>
         </header>
 
-        <section className={`flex items-end space-x-7 bg-gradient-to-b to-black ${color} h-80 text-white padding-8`}
+        <section className={`flex items-end space-x-7 bg-gradient-to-b to-black ${color} h-80 text-white p-8`}
         >
 
             <img 
@@ -74,6 +77,10 @@ function Center() {
              
              </div>
         </section>
+
+        <div>
+            <Songs />
+        </div>
     </div>
   )
 }
