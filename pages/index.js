@@ -24,8 +24,8 @@ export default function Home() {
 
 export async function getServerSideProps(context) {
  const session = await getSession(context);
-  //pre-render the user on the server which will give the access token before hitting the client
-  // issue with not giving the default key value after login - FIXED
+  //pre-render the user on the server which will give the access token before hitting the client 
+  // issue with not giving the default key value after login - glitch FIXED
  return {
    props: {
      session
