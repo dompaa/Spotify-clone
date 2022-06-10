@@ -3,6 +3,8 @@ import { milisToMinutesAndSeconds } from "../lib/time";
 
 function Song ({order, track}) {
     const spotifyApi = useSpotify();
+    //pull in IsplayingState and current track
+    const [currentTrackId, setCurrentTrackId] = useState(null);
 
     return (
 
