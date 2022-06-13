@@ -6,11 +6,11 @@ import useSpotify from './useSpotify'
 function useSongInfo() {
     const spotifyApi = useSpotify();
     const [currentIdTrack, setCurrentIdTrack] = useRecoilState(currentTrackIdState);
-    const [songInfo, setSongInfo] = useState(null)
+    const [songInfo, setSongInfo] = useState(null);
 
     useEffect(() => {
         //when mounts fetch song info
-        const fetchSongInfo = async {} => {
+        const fetchSongInfo = async () => {
             if(currentIdTrack) {
                 const trackInfo = await fetch(
                     `https://api.spotify.com/v1/tracks/${currentIdTrack}`,
@@ -20,7 +20,7 @@ function useSongInfo() {
                         }
                     }
 
-                ).then (res => res.json());
+                ).then(res => res.json());
 
                 setSongInfo(trackInfo);
             }
@@ -29,11 +29,7 @@ function useSongInfo() {
         fetchSongInfo();
     }, [currentIdTrack, spotifyApi]);
 
-  return (
-    <div>
-
-    </div>
-  )
+  return songInfo;
 }
 
 export default useSongInfo
